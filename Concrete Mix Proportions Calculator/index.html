@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width">
+
+        <title>Concrete Mix Calculator</title>
+	    <!--<link rel="stylesheet" type="text/css" href="style.css">-->
+    </head>
+
+    <body>
+        <script type="text/javascript" src="script.js"></script>
+
+        <form>
+            <table>
+                <tr>
+                    <td>1. Type of Construction</td>
+                    <td>
+                        <select id="consType" onchange=consTypeChange(this)>
+                            <option value="none" disabled hidden>--Select--</option>
+                            <option value="Reinforced foundation walls and footings">Reinforced foundation walls and footings</option>
+                            <option value="Plain footings, caissons, and substructure walls">Plain footings, caissons, and substructure walls</option>
+                            <option value="Beams and reindorced walls">Beams and reinforced walls</option>
+                            <option value="Building columns">Building columns</option>
+                            <option value="Pavement and slabs">Pavement and slabs</option>
+                            <option value="Mass concrete">Mass concrete</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>2. Exposure</td>
+                    <td>
+                        <select id="exposure" required>
+                            <option value="none" disabled hidden>-- Select --</option>		<!-- value for false -->
+                            <option value="Mild">Mild</option>
+                            <option value="Moderate">Moderate</option>
+                            <option value="Severe">Severe</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Air entrained?</td>
+                    <td><select id="airEnt" required>
+                        <option value="none" disabled hidden>-- Select --</option>		<!-- value for false -->
+                        <option value="Non-Air Entrained">Non-Air Entrained</option>
+                        <option value="Air Entrained">Air Entrained</option></select></td>
+                </tr>
+
+                <tr>
+                    <td>3. Max. aggregate size (in)</td>
+                    <td><input type="number" id="maxAggre" required=></td>
+                </tr>
+
+                <tr>
+                    <td><label id="slumpLabel">4. Slump (in)</label></td>
+                    <td><input type="number" id="slump" min="1" max="4" required></td>
+                </tr>
+
+                <tr>
+                    <td>5. Specified f'c @ 28 days (psi)</td>
+                    <td><input type="number" id="specFC" required></td>
+                </tr>
+            </table><br>
+
+            <table>
+                <tr>
+                    <th> </th>
+                    <th>Cement</th>
+                    <th>Sand</th>
+                    <th>Gravel</th>
+                </tr>
+                <tr>
+                    <td>Bulk specific gravity</td>
+                    <td><input type="number" id="BSG_Cement" required></td>
+                    <td><input type="number" id="BSG_Sand" required></td>
+                    <td><input type="number" id="BSG_Gravel" required></td>
+                </tr>
+                <tr>
+                    <td>Bulk Density (lb/ft^3)</td>
+                    <td><input type="number" id="BD_Cement" required></td>
+                    <td><input type="number" id="BD_Sand" required></td>
+                    <td><input type="number" id="BD_Gravel" required></td>
+                </tr>
+                <tr>
+                    <td>Dry-rodded Unit Weight (lb/ft^3)</td>
+                    <td id="nothing">-</td>
+                    <td id="nothing">-</td>
+                    <td><input type="number" id="DRUW_Gravel" required></td>
+                </tr>
+                <tr>
+                    <td>Fineness Modulus</td>
+                    <td id="nothing">-</td>
+                    <td><input type="number" id="FM_Sand" required></td>
+                    <td id="nothing">-</td>
+                </tr>
+                <tr>
+                    <td>Moisture Deviation</td>
+                    <td id="nothing">-</td>
+                    <td><input type="number" id="MD_Sand" required></td>
+                    <td><input type="number" id="MD_Gravel" max="0" required></td>
+                </tr>
+            </table><br>
+
+            <table>
+                <tr>
+                    <th>Material</th>
+                    <th>Quantity</th>
+                    <th>Units</th>
+                </tr>
+                <tr>
+                    <td>Cement</td>
+                    <td id="QM_cement"></td>
+                    <td>
+                        <select id="cement_units">
+                            <option value="lb" selected>lb</option>
+                            <option value="kg">kg</option>
+                            <option value="40 kg">40 kg</option>
+                            <option value="50 kg">50 kg</option>
+                            </select>
+                        </td>
+                </tr>
+                <tr>
+                    <td>Water</td>
+                    <td id="QM_water"></td>
+                    <td>
+                        <select id="water_units">
+                            <option value="L" selected>L</option>
+                            <option value="m^3">m^3</option>
+                            <option value="lb">lb</option>
+                            <option value="kg">kg</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Gravel</td>
+                    <td id="QM_gravel"></td>
+                    <td>
+                        <select id="gravel_units">
+                            <option value="m^3" selected>m^3</option>
+                            <option value="kg">kg</option>
+                            <option value="lb">lb</option>
+                            </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Sand</td>
+                    <td id="QM_sand"></td>
+                    <td>
+                        <select id="sand_units">
+                            <option value="m^3" selected>m^3</option>
+                            <option value="kg">kg</option>
+                            <option value="lb">lb</option>
+                            </select>
+                    </td>
+                    <td>
+                        <select id="WMorAVM">
+                            <option value="via Weight Method" selected>via Weight Method</option>
+                            <option value="via Absolute Volume Method">via Absolute Volume Method</option>
+                        </select>
+                        </td>
+                </tr>
+            </table>
+
+
+            <div class="buttons">
+                <input type="button" id="submit" value="Calculate" onclick=getFormData()>
+                <input type="reset" id="reset">
+            </div>
+
+        </form>
+       
+    
+        
+    </body>
